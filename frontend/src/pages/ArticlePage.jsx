@@ -1,13 +1,20 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { useLocation } from "react-router";
+import { useLocation,useNavigate } from "react-router";
 import demo_pic from "../assets/pexels-nappy-935979.jpg";
 
 const ArticlePage = () => {
+  const navigate=useNavigate();
   const location = useLocation();
   const article = location.state?.article || {};
   const [summary, setSummary] = useState("");
+  const [k,setk]=useState([]);
   const API_KEY = import.meta.env.VITE_API_KEY;
+
+  const handleClick = () => {
+    const topics = article.topics.join('delhi,punjab,pakistan'); // Convert array to comma-separated string
+    navigate(`/?topics=${topics}`); // Navigate with query parameters
+  };
 
   useEffect(() => {
     if (article.description && article.content) {
@@ -31,8 +38,6 @@ const ArticlePage = () => {
       console.error("Error:", error.response ? error.response.data : error.message);
     }
   }
-  const candidate_label= ["Politics", "Health", "Technology", "Business", "Sports"];
-  const [topicscore,settopicscore]=useState([]);
   const zeroShotAPI = async (text) => {
     try {
       const response = await axios.post(
@@ -40,15 +45,19 @@ const ArticlePage = () => {
         {
           inputs: text,
           parameters: {
-            candidate_labels:["Politics", "Health", "Technology", "Business", "Sports","Education"],
+            candidate_labels:["Politics", "Health", "Technology", "Business", "Sports","Education","Climate","Defence","Entertainment"],
           }
         },
         {
           headers: { Authorization: `Bearer ${API_KEY}` }
         }
       );
-      settopicscore(response.data.scores);
-      console.log(topicscore);
+     setk(response.data.labels);
+     console.log(response.data.labels);
+     console.log(k)
+     const a=k.slice(0,2);
+     console.log(a)
+    
     } catch (error) {
       console.error("Error:", error.response ? error.response.data : error.message);
     }
@@ -87,6 +96,7 @@ const ArticlePage = () => {
           <p className="text-lg leading-relaxed">{summary}</p>
         </div>
       )}
+      <button onClick={handleClick} className="bg-blue-800 p-2 text-2xl mt-10 rounded-lg text-white">Back to Home</button>
     </div>
   );
 };
