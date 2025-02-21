@@ -7,11 +7,35 @@ import { useUser } from "@clerk/clerk-react";
 
 const Home = () => {
   const [articles, setArticles] = useState([]);
+  const news_topics = [
+    "Elections",
+    "Budget",
+    "StockMarket",
+    "Cricket",
+    "Inflation",
+    "Technology",
+    "Education",
+    "Healthcare",
+    "Politics",
+    "Scam",
+    "Farmers",
+    "Adani",
+    "Ambani",
+    "Startups",
+    "Cybersecurity",
+    "ArtificialIntelligence",
+    "Weather",
+    "GDP",
+    "Defense",
+    "Corruption"
+  ];
+  let random_topic=news_topics[Math.floor(Math.random() * news_topics.length)];
+  
 
   async function getNews() {
     try {
       const response = await axios.get(
-        `https://gnews.io/api/v4/search?q=india&apikey=${
+        `https://gnews.io/api/v4/search?q=${random_topic}&apikey=${
           import.meta.env.VITE_NEWS_API_KEY
         }`
       );
