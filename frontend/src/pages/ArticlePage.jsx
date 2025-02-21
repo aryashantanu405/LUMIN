@@ -67,7 +67,7 @@ const ArticlePage = () => {
   return (
     <div className="mt-20 h-screen flex flex-col justify-start items-center bg-gray-50">
       {/* Title */}
-      <h1 className="text-5xl md:text-6xl font-bold text-center mt-10 mb-12 text-gray-900 leading-tight">
+      <h1 className="text-2xl md:text-6xl font-bold text-center mt-10 mb-12 text-gray-900 leading-tight">
         {article.title}
       </h1>
 
