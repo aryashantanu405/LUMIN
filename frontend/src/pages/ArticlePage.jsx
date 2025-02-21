@@ -12,8 +12,8 @@ const ArticlePage = () => {
   const API_KEY = import.meta.env.VITE_API_KEY;
 
   const handleClick = () => {
-    const topics = article.topics.join('delhi,punjab,pakistan'); // Convert array to comma-separated string
-    navigate(`/?topics=${topics}`); // Navigate with query parameters
+    navigate("/");
+    // Navigate with query parameters
   };
 
   useEffect(() => {
